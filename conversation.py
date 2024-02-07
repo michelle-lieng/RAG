@@ -8,15 +8,18 @@ import json # for readability of the chat history
 with open('GPT_api_key.txt') as f:
     openai_api_key = f.read()
 
-def read_pdf_files_from_folder(folder_path):
+def read_pdf_files_from_folder(folder_path: str):
     pdf_files = []
     pdf_names = []
     
-    for file in os.listdir("data"):
+    for file in os.listdir(folder_path):
         if file.endswith(".pdf"):
             pdf_names.append(file.rstrip(".pdf"))
             pdf_files.append(os.path.join("data", file))
     return pdf_files, pdf_names
+
+
+read_pdf_files_from_folder("data")
 
 # Define the template for the chatbot system prompt
 system_prompt = """
@@ -89,4 +92,5 @@ Example questions to ask for AMEX document:
 - Are there any countries that I will not be covered for if I travel to?
 - What is eligible for travel insurance?
 - What am I covered for?
+- What ages can I be covered by travel insurance?
 """
