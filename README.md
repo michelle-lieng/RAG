@@ -1,5 +1,5 @@
 # RAG
-Implementing RAG with Langchain and OpenAI API. PDF in data file is the AMEX Ultimate Card Travel Insurance terms and conditions. You can view pdf [here](https://www.americanexpress.com/content/dam/amex/au/pdfs/credit-cards/pds_ultimatecard.pdf).
+Implementing RAG with Langchain and OpenAI API. PDFs in data file are downloaded from the AMEX Ultimate Card policies listed under "Important Information" on [this page here.](https://www.americanexpress.com/au/credit-cards/qantas-ultimate-card/).
 
 First try on the RAG chatbot - successful:
 
@@ -25,6 +25,8 @@ To be eligible for travel insurance, you must meet the following criteria based 
 
 Please note that the eligibility criteria may vary depending on the specific insurance policy. It is recommended to read the full policy document for complete information. (AMERICAN EXPRESS CREDIT CARD INSURANCE, page 4)
 ```
+
+Have now enabled conversation with the chatbot in conversation.py.
 
 Note:
 
