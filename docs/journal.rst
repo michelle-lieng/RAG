@@ -2,6 +2,8 @@
 Self Notes
 ===========
 
+Original code inspiration: https://github.com/avrabyt/RAG-Chatbot
+
 Next Steps (Debugging & Experimental)
 =====================================
 8/2/24
