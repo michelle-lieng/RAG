@@ -11,7 +11,7 @@ def read_pdf_files_from_folder(folder_path):
     pdf_files = []
     pdf_names = []
     
-    for file in os.listdir("data"):
+    for file in os.listdir(folder_path):
         if file.endswith(".pdf"):
             pdf_names.append(file.rstrip(".pdf"))
             pdf_files.append(os.path.join("data", file))

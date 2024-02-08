@@ -24,7 +24,7 @@ def create_vectordb(pdf_files, pdf_names, openai_api_key):
     """
     documents = []
 
-    for pdf_path, pdf_name in zip([r"data\amex.pdf"], ["Amex"]):
+    for pdf_path, pdf_name in zip(pdf_files, pdf_names):
 
         # open the PDF file in binary mode ('rb') and ensure its content is read as bytes-like object
         with open(pdf_path, 'rb') as file: 
@@ -42,6 +42,7 @@ def create_vectordb(pdf_files, pdf_names, openai_api_key):
     return db
 
 # Trying the function
+"""
 db = create_vectordb(r"data\amex.pdf", "amex", openai_api_key)
 
 query = "Who is eligible for travel insurance?"
@@ -49,3 +50,4 @@ docs = db.similarity_search(query, k=3) #get 3 chunks
 
 docs[1] # can slice chunks like this -> get the 2nd chunk
 print(docs[0].page_content)
+"""
