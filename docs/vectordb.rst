@@ -23,6 +23,7 @@ inverted indexes (map from content keywords to their location in the db), etc.
 FAISS
 ======
 .. code-block:: python
+
     $pip install faiss-cpu 
     import faiss
 
@@ -39,6 +40,7 @@ on normalized vectors.
 Langchain's vector store 
 =========================
 .. code-block:: python
+    
     $pip install langchain
     from langchain.vectorstores.faiss import FAISS
 
