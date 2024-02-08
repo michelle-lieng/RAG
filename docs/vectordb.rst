@@ -9,7 +9,7 @@ such as indexing.
 We apply embeddings to text captures the semantic and contextual information of the data and then 
 store embeddings in a vector database so we can index it.
 
-indexing
+Indexing
 ========
 An index is a structured way to organise data within a vector db to improve efficiency of query operations, 
 especially for similarity searches. The index enables you to quickly retrieve vectors that are most similar
@@ -22,8 +22,9 @@ inverted indexes (map from content keywords to their location in the db), etc.
 
 FAISS
 ======
-.. $pip install faiss-cpu 
-.. import faiss
+.. code-block:: python
+    $pip install faiss-cpu 
+    import faiss
 
 Faiss (Facebook AI Similarity Search) is a library for efficient similarity search and clustering of dense 
 vectors. It contains algorithms that search in sets of vectors of any size, up to ones that possibly do 
@@ -37,8 +38,9 @@ on normalized vectors.
 
 Langchain's vector store 
 =========================
-.. $pip install langchain
-.. from langchain.vectorstores.faiss import FAISS
+.. code-block:: python
+    $pip install langchain
+    from langchain.vectorstores.faiss import FAISS
 
 This is a free, open-source vector store option that can be run entirely on your local machine.
 The FAISS vector database makes use of Facebook AI Similarity Search (FAISS) library.
