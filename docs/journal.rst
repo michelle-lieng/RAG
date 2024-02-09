@@ -15,6 +15,7 @@ Next Steps (Debugging & Experimental)
 * Play around with whisper to ask questions
 * Improve RAG with keywords and cosine similarity
 * Update the readme file
+* Add a way to minimize token length of chat history as the conversation gets longer
 
 Completed Changes
 =================
