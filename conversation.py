@@ -82,15 +82,12 @@ def conversation():
             print("-------------------------")
             for entry in chat_history:
                 print(json.dumps(entry, indent=4))
+            print("\n")
+            print("This is the token count: ")
+            print("-------------------------")
+            print(f'{completion.usage.prompt_tokens} prompt tokens counted by the OpenAI API.')
+            print(f'You have {4097 - completion.usage.prompt_tokens} remaining tokens for the gpt-3.5-turbo model.')
+            print("\n")
             continue
 
-conversation()
-
-"""
-Example questions to ask for AMEX document:
-- How long can I be covered for while travelling?
-- Are there any countries that I will not be covered for if I travel to?
-- What is eligible for travel insurance?
-- What am I covered for?
-- What ages can I be covered by travel insurance?
-"""
+# conversation()
