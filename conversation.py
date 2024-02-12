@@ -18,8 +18,7 @@ def read_pdf_files_from_folder(folder_path: str):
             pdf_files.append(os.path.join("data", file))
     return pdf_files, pdf_names
 
-
-read_pdf_files_from_folder("data")
+#read_pdf_files_from_folder("data")
 
 # Define the template for the chatbot system prompt
 system_prompt = """
@@ -36,22 +35,31 @@ system_prompt = """
 def conversation():
     user_query = ""  # Initialize x with an empty string
     chat_history = [] # Define chat history
+
+    data_folder = "data"  # Path to the folder where PDFs are stored.
+    pdf_files, pdf_names = read_pdf_files_from_folder(data_folder)
+
+    # create vector database and index
+    db = create_vectordb(pdf_files, pdf_names, openai_api_key)
+    
     while True:
         user_query = input("Ask anything: ")
+
         if user_query.lower() == "end":
             break
         else:
-            data_folder = "data"  # Path to the folder where PDFs are stored.
-            pdf_files, pdf_names = read_pdf_files_from_folder(data_folder)
-
-            # create vector database and index
-            db = create_vectordb(pdf_files, pdf_names, openai_api_key)
-
             # retrieve 3 similar document chunks to the user query
-            docs = db.similarity_search(user_query, k=1) 
+            docs = db.similarity_search(user_query, k=3) 
+            
+            print("\n")
+            print("This is the pdf extracts: ")
+            print("-------------------------")
+            print(docs)
+            print("\n")
 
             # add these document chunks to the system prompt
-            pdf_extract = "/n ".join([result.page_content for result in docs])
+            #pdf_extract = "/n ".join([result.page_content for result in docs])
+            pdf_extract = docs
 
             #initialize system prompt to be added to the model
             system = {"role": "system", "content": system_prompt.format(pdf_extract=pdf_extract)}
