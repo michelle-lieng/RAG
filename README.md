@@ -1,139 +1,6 @@
 # RAG
 Implementing RAG with Langchain and OpenAI API. PDFs in data file are downloaded from the AMEX Ultimate Card policies listed under "Important Information" on [this page here.](https://www.americanexpress.com/au/credit-cards/qantas-ultimate-card/).
 
-First try on the RAG chatbot - successful:
-
-```python
-print(chatbot("Who is eligible for travel insurance?"))
-```
-
-Returned:
-
-```
-To be eligible for travel insurance, you must meet the following criteria based on the information provided in the document "AMERICAN EXPRESS CREDIT CARD INSURANCE" on page 4:
-
-1. For International Return Trips, you must:
-   - Be going on an International Return Trip and pay the full amount of your outbound ticket for a Scheduled Flight or Scheduled Cruise leaving Australia on your American Express Card Account, corresponding American Express Membership Rewards points/Qantas Points/Velocity Points (where applicable), and/or Travel Benefit.
-   - Hold an eligible American Express Card Account that is current (not cancelled or suspended).
-   - Be 79 years of age or younger when you make your Qualifying Travel Purchase.
-
-2. For Card Purchase Cover (Section H) and Card Refund Cover (Section I):
-   - Be a Card Member or an Additional Card Member, or their spouse or dependent child.
-   - Be a Resident of Australia.
-   - Purchase an Eligible Item and pay the entire cost using your American Express Card Account and/or corresponding Qantas Points/Velocity Points (where applicable).
-   - Hold an eligible American Express Card Account that is current (not cancelled or suspended).
-
-Please note that the eligibility criteria may vary depending on the specific insurance policy. It is recommended to read the full policy document for complete information. (AMERICAN EXPRESS CREDIT CARD INSURANCE, page 4)
-```
-
-Have now enabled conversation with the chatbot in conversation.py. Currently debugging error with unknown filename metadata.
-
-```python
-conversation()
-```
-
-Returned:
-
-```
-Ask anything: Who can I call if my card gets lost?
-
-
-This is the chatbot response:
------------------------------
-You can call us immediately on 1300 132 639 (or if overseas by reverse charges on +61 2 9271 8666) to report a lost card. (filename: unknown, page: 13)
-
-
-This is the chat history:
--------------------------
-{
-    "role": "user",
-    "content": "Who can I call if my card gets lost?"
-}
-{
-    "role": "assistant",
-    "content": "You can call us immediately on 1300 132 639 (or if overseas by reverse charges on +61 2 9271 8666) to report a lost card. (filename: unknown, page: 13)"
-}
-
-
-This is the token count:
--------------------------
-541 prompt tokens counted by the OpenAI API.
-You have 3556 remaining tokens for the gpt-3.5-turbo model.
-Ask anything: Are there any countries that I will not be covered for if I travel to?
-
-
-This is the chatbot response:
------------------------------
-Yes, if an Australian State or Territory or the Australian Federal Government or an Australian government agency (such as DFAT) have issued a travel advisory warning, advising you to 'Do Not Travel' or that borders are closed, for the destination you planned to travel to, you will not be covered. Please refer to who.int, smartraveller.gov.au, dfat.gov.au, or other government sites for further information. This exclusion applies even if you have been granted a travel exemption by an Australian State or Territory, the Australian Federal Government, or an Australian government agency (such as DFAT) to travel. (filename: unknown, page: 8)
-
-
-This is the chat history:
--------------------------
-{
-    "role": "user",
-    "content": "Who can I call if my card gets lost?"
-}
-{
-    "role": "assistant",
-    "content": "You can call us immediately on 1300 132 639 (or if overseas by reverse charges on +61 2 9271 8666) to report a lost card. (filename: unknown, page: 13)"
-}
-{
-    "role": "user",
-    "content": "Are there any countries that I will not be covered for if I travel to?"
-}
-{
-    "role": "assistant",
-    "content": "Yes, if an Australian State or Territory or the Australian Federal Government or an Australian government agency (such as DFAT) have issued a travel advisory warning, advising you to 'Do Not Travel' or that borders are closed, for the destination you planned to travel to, you will not be covered. Please refer to who.int, smartraveller.gov.au, dfat.gov.au, or other government sites for further information. This exclusion applies even if you have been granted a travel exemption by an Australian State or Territory, the Australian Federal Government, or an Australian government agency (such as DFAT) to travel. (filename: unknown, page: 8)"
-}
-
-
-This is the token count:
--------------------------
-510 prompt tokens counted by the OpenAI API.
-You have 3587 remaining tokens for the gpt-3.5-turbo model.
-Ask anything: How long can I be covered for while travelling?
-
-
-This is the chatbot response:
------------------------------
-Cover automatically ends for all trips at 180 days. (filename: unknown, page: 8)
-
-
-This is the chat history:
--------------------------
-{
-    "role": "user",
-    "content": "Who can I call if my card gets lost?"
-}
-{
-    "role": "assistant",
-    "content": "You can call us immediately on 1300 132 639 (or if overseas by reverse charges on +61 2 9271 8666) to report a lost card. (filename: unknown, page: 13)"
-}
-{
-    "role": "user",
-    "content": "Are there any countries that I will not be covered for if I travel to?"
-}
-{
-    "role": "assistant",
-    "content": "Yes, if an Australian State or Territory or the Australian Federal Government or an Australian government agency (such as DFAT) have issued a travel advisory warning, advising you to 'Do Not Travel' or that borders are closed, for the destination you planned to travel to, you will not be covered. Please refer to who.int, smartraveller.gov.au, dfat.gov.au, or other government sites for further information. This exclusion applies even if you have been granted a travel exemption by an Australian State or Territory, the Australian Federal Government, or an Australian government agency (such as DFAT) to travel. (filename: unknown, page: 8)"
-}
-{
-    "role": "user",
-    "content": "How long can I be covered for while travelling?"
-}
-{
-    "role": "assistant",
-    "content": "Cover automatically ends for all trips at 180 days. (filename: unknown, page: 8)"
-}
-
-
-This is the token count:
--------------------------
-662 prompt tokens counted by the OpenAI API.
-You have 3435 remaining tokens for the gpt-3.5-turbo model.
-Ask anything: end
-```
-
 Example questions to ask for AMEX document:
 - How long can I be covered for while travelling?
 - Are there any countries that I will not be covered for if I travel to?
@@ -148,3 +15,137 @@ Note:
 $ python --version
 
 Python 3.11.0
+
+View example below:
+
+```
+>>> conversation()
+Ask anything: Who is eligible for travel insurance?
+
+
+This is the pdf extracts:
+-------------------------
+[Document(page_content='4 AMERICAN EXPRESS CREDIT CARD INSURANCEExclusions Within This Policy As with all insurance, there are certain exclusions that apply. Some  exclusions only apply to certain benefits under this Policy, while other  exclusions apply to all claims. You should read the following: a)   General Exclusions and General Conditions sections          
+                      within this Policy, which apply to all claims. b)   Each cover section includes information about what We cover   and any terms and conditions and exclusions that apply to the   cover section. To ensure You understand when We will pay for a claim, You should   read each section carefully. You should make sure to check this Policy  before You travel to make sure that You, and all the things You want to   do, are covered. Cover Section Age Limit Age Limit for Covered Person Travel Insurance Cover  (Section A - G)Y ou must be 79 years of age or younger before You make Your Qualifying Travel Purchase. Card Purchase Cover (Section H) Card Refund Cover (Section I)No age limitations apply for these cover sections. Age Limit for Close Relative or Travelling Companion If Your claim relates to cancellation or disruption of Your Trip due to an Injury  or Illness of Your Close Relative or Travelling Companion, age limits also  apply. Trip Cancellation and Amendment Cover (Section A) Resumption of Long International Trip Cover (Section E)Close Relative or Travelling Companion must be 90 years of age or younger  when You make Your Qualifying Travel Purchase.Age Limits Please note that to be eligible for some of the benefits under this Policy, age limits apply. Please see the table below for a summary of the age limits that apply  within this Policy.', metadata={'page': 6, 'filename': 'insurance_tncs'}), Document(page_content='AMERICAN EXPRESS CREDIT CARD INSURANCE7Cover SectionEligibility Criteria To be eligible for the benefits under the cover section(s) of the Policy, the following eligibility criteria needs to be met:When are benefits available under the Policy?When are no benefits  available under this Policy? International Return Trips 4.  You are going on an International Return Trip and You pay the full  amount of Your outbound ticket for a Scheduled Flight or Scheduled  Cruise leaving Australia on Your: i. American Express Card Account; ii. corresponding American Express Membership Rewards points /  Qantas Points / Velocity Points (where applicable); and/or iii. Travel Benefit. 5.  You hold an eligible American Express Card Account which is current  (meaning it is not cancelled or suspended). 6.  You are 79 years of age or younger when You make Your Qualifying  Travel Purchase. Card Purchase Cover   (Section H) Card Refund  Cover (Section I)1. You are a Card Member or an Additional Card Member or their: a) Spouse; or b) Dependent Child. 2. You are a Resident of Australia. 3. You purchase an Eligible Item and pay the entire cost using Your: i. American Express Card Account, and/or ii. corresponding Qantas Points / Velocity Points (where applicable). 4.  You hold an eligible American Express Card Account which is current  (meaning it is not cancelled or suspended).If You have satisfied the eligibility criteria, You will be eligible to make a claim for the Eligible Item that  eligibility condition 3 applies to.There is no cover under this Policy if: 1.  You do not meet the  eligibility criteria; 2.  Your American Express  Card Account has been  cancelled or suspended.  Please also refer to the Terms,  Conditions and Exclusions  within each cover section   (H and I below) and the  General Exclusions and  General Conditions within   this Policy. IMPORTANT INFORMATION: American Express has the right to change or terminate the Group Policy and your insurance benefits under it. American  Express will always notify you before making any change to the Group Policy that materially impacts your insurance benefits.', metadata={'page': 9, 'filename': 'insurance_tncs'}), Document(page_content='AMERICAN EXPRESS CREDIT CARD INSURANCE11Section Cover Description Key Exclusions Travel Insurance Cover C Travel Inconvenience Cover Provides cover if: • Your Scheduled Flight departure is delayed by 4 hours  or more; • Your Scheduled Flight is cancelled; • You are denied Scheduled Flight boarding; • You miss a Scheduled Flight connection; or • Your checked luggage is delayed by 6 hours or more. The amount of cover varies for each benefit.We will not pay for: • Personal Baggage delay at the airport You first departed from in Your  Home State or Territory in Australia; •  the purchase of clothing and toiletries which are not necessary for   Your Trip; •  costs if You fail to notify the transport provider or carrier about delayed  or missing luggage or You do not obtain a luggage incident report from  them or show You have taken reasonable steps to obtain one. D Medical Emergency Expenses Cover Provides cover for Repatriation/Evacuation, cost of overseas  Treatment, emergency dental Treatment and reasonable  extra accommodation costs in the event of a Medical  Emergency while You are on Your International Return Trip,  and transportation of Your remains or burial expenses  following Your death while on a Trip.We will not pay for: • costs relating to Pre-Existing Medical Conditions; •  any expenses if you are 80 years of age or older before You make your  Qualifying Travel Purchase; • medical costs if You do not make reasonable attempts to contact  Chubb Assistance where You were reasonably able to do so; •  costs arising from Your participation in Excluded Sports and Activities  (for example, horse riding, deep sea fishing, bungee jumping, jet  skiing, hot air ballooning and rock climbing). Check the definition of  Excluded Sports and Activities in the Definitions section for the full list  of excluded activities; •  costs arising from or related to Trips where the following advice has  been provided prior to starting Your Trip,  -    an Australian State or Territory or the Australian Federal  Government or an Australian government agency (such as DFAT)  has issued a travel advisory warning, advising You to ‘Do Not Travel’  or that borders are closed, for the destination You planned to travel  to; or  -a Doctor advised You not to travel. E Resumption of Long International Trip Cover Covers the costs of resuming Your Long International   Trip (of 2 weeks or more) if it is interrupted due to the   death, imminent death, Injury or unforeseen Illness of a   Close Relative.We will not pay for: • costs arising from or relating to interruption due to the death, Injury  or unforeseen Illness of a Close Relative who is 91 years of age or older  before You make Your Qualifying Travel Purchase; • death, accident or Illness of a Close Relative where such an event   was reasonably foreseeable at the time of making Your Qualifying   Travel Purchase; •  costs arising from the Terminal Illness of a Close Relative which was  diagnosed before You made Your Qualifying Travel Purchase; • an interruption to a Long International Trip which was caused by or was  related to an epidemic, pandemic or outbreak of an infectious disease  or virus or any derivative or mutation of such viruses.', metadata={'page': 13, 'filename': 'insurance_tncs'})]
+
+
+
+
+This is the chatbot response:
+-----------------------------
+To be eligible for travel insurance, you must meet the following criteria:
+- You must be 79 years of age or younger when you make your Qualifying Travel Purchase. (insurance_tncs, page 6)
+- You must be going on an International Return Trip and pay the full amount of your outbound ticket for a Scheduled Flight or Scheduled Cruise leaving Australia using your American Express Card Account, corresponding American Express Membership Rewards points, Qantas Points, Velocity Points, or Travel Benefit. (insurance_tncs, page 9)
+- You must hold an eligible American Express Card Account that is current (not cancelled or suspended). (insurance_tncs, page 9)
+
+
+This is the chat history:
+-------------------------
+{
+    "role": "user",
+    "content": "Who is eligible for travel insurance?"
+}
+{
+    "role": "assistant",
+    "content": "To be eligible for travel insurance, you must meet the following criteria:\n- You must be 79 years of age or younger when you make your Qualifying Travel Purchase. (insurance_tncs, page 6)\n- You must be going on an International Return Trip and pay the full amount of your outbound ticket for a Scheduled Flight or Scheduled Cruise leaving Australia using your American Express Card Account, corresponding American Express Membership Rewards points, Qantas Points, Velocity Points, or Travel Benefit. (insurance_tncs, page 9)\n- You must hold an eligible American Express Card Account that is current (not cancelled or suspended). (insurance_tncs, page 9)"
+}
+
+
+This is the token count:
+-------------------------
+1641 prompt tokens counted by the OpenAI API.
+You have 2456 remaining tokens for the gpt-3.5-turbo model.
+
+
+Ask anything: Am I eligible for travel insurance if I've only bought a 1 way ticket?
+
+
+This is the pdf extracts:
+-------------------------
+[Document(page_content='AMERICAN EXPRESS CREDIT CARD INSURANCE7Cover SectionEligibility Criteria To be eligible for the benefits under the cover section(s) of the Policy, the following eligibility criteria needs to be met:When are benefits available under the Policy?When are no benefits  available under this Policy? International Return Trips 4.  You are going on an International Return Trip and You pay the full  amount of Your outbound ticket for a Scheduled Flight or Scheduled  Cruise leaving Australia on Your: i. American Express Card Account; ii. corresponding American Express Membership Rewards points /  Qantas Points / Velocity Points (where applicable); and/or iii. Travel Benefit. 5.  You hold an eligible American Express Card Account which is current  (meaning it is not cancelled or suspended). 6.  You are 79 years of age or younger when You make Your Qualifying  Travel Purchase. Card Purchase Cover   (Section H) Card Refund  Cover (Section I)1. You are a Card Member or an Additional Card Member or their: a) Spouse; or b) Dependent Child. 2. You are a Resident of Australia. 3. You purchase an Eligible Item and pay the entire cost using Your: i. American Express Card Account, and/or ii. corresponding Qantas Points / Velocity Points (where applicable). 4.  You hold an eligible American Express Card Account which is current  (meaning it is not cancelled or suspended).If You have satisfied the eligibility criteria, You will be eligible to make a claim for the Eligible Item that  eligibility condition 3 applies to.There is no cover under this Policy if: 1.  You do not meet the  eligibility criteria; 2.  Your American Express  Card Account has been  cancelled or suspended.  Please also refer to the Terms,  Conditions and Exclusions  within each cover section   (H and I below) and the  General Exclusions and  General Conditions within   this Policy. IMPORTANT INFORMATION: American Express has the right to change or terminate the Group Policy and your insurance benefits under it. American  Express will always notify you before making any change to the Group Policy that materially impacts your insurance benefits.', metadata={'page': 9, 'filename': 'insurance_tncs'}), Document(page_content='AMERICAN EXPRESS CREDIT CARD INSURANCE11Section Cover Description Key Exclusions Travel Insurance Cover C Travel Inconvenience Cover Provides cover if: • Your Scheduled Flight departure is delayed by 4 hours  or more; • Your Scheduled Flight is cancelled; • You are denied Scheduled Flight boarding; • You miss a Scheduled Flight connection; or • Your checked luggage is delayed by 6 hours or more. The amount of cover varies for each benefit.We will not pay for: • Personal Baggage delay at the airport You first departed from in Your  Home State or Territory in Australia; •  the purchase of clothing and toiletries which are not necessary for   Your Trip; •  costs if You fail to notify the transport provider or carrier about delayed  or missing luggage or You do not obtain a luggage incident report from  them or show You have taken reasonable steps to obtain one. D Medical Emergency Expenses Cover Provides cover for Repatriation/Evacuation, cost of overseas  Treatment, emergency dental Treatment and reasonable  extra accommodation costs in the event of a Medical  Emergency while You are on Your International Return Trip,  and transportation of Your remains or burial expenses  following Your death while on a Trip.We will not pay for: • costs relating to Pre-Existing Medical Conditions; •  any expenses if you are 80 years of age or older before You make your  Qualifying Travel Purchase; • medical costs if You do not make reasonable attempts to contact  Chubb Assistance where You were reasonably able to do so; •  costs arising from Your participation in Excluded Sports and Activities  (for example, horse riding, deep sea fishing, bungee jumping, jet  skiing, hot air ballooning and rock climbing). Check the definition of  Excluded Sports and Activities in the Definitions section for the full list  of excluded activities; •  costs arising from or related to Trips where the following advice has  been provided prior to starting Your Trip,  -    an Australian State or Territory or the Australian Federal  Government or an Australian government agency (such as DFAT)  has issued a travel advisory warning, advising You to ‘Do Not Travel’  or that borders are closed, for the destination You planned to travel  to; or  -a Doctor advised You not to travel. E Resumption of Long International Trip Cover Covers the costs of resuming Your Long International   Trip (of 2 weeks or more) if it is interrupted due to the   death, imminent death, Injury or unforeseen Illness of a   Close Relative.We will not pay for: • costs arising from or relating to interruption due to the death, Injury  or unforeseen Illness of a Close Relative who is 91 years of age or older  before You make Your Qualifying Travel Purchase; • death, accident or Illness of a Close Relative where such an event   was reasonably foreseeable at the time of making Your Qualifying   Travel Purchase; •  costs arising from the Terminal Illness of a Close Relative which was  diagnosed before You made Your Qualifying Travel Purchase; • an interruption to a Long International Trip which was caused by or was  related to an epidemic, pandemic or outbreak of an infectious disease  or virus or any derivative or mutation of such viruses.', metadata={'page': 13, 'filename': 'insurance_tncs'}), Document(page_content='24 AMERICAN EXPRESS CREDIT CARD INSURANCE4.  You must take reasonable steps to recover any refund, credit note or  voucher You are entitled to. Where You have received or been offered  a refund, credit note or voucher for the cost of a booking, whether  partially or in full, the amount offered or received is to be considered  refundable. You are only eligible for cover under this cover section for  non-refundable and unused costs. EXCLUSIONS – TRIP CANCELLATION AND AMENDMENT COVER (Please also refer to the General Exclusions Applicable to All Sections  Within This Policy). We will not pay for or reimburse any costs arising from or relating to: 1. You or any other person simply changing their mind and deciding not to  start a Trip, continue with the Trip or any other disinclination to travel; 2.  Pre-Existing Medical Conditions (whether Yours, Your Travelling  Companion’s or a Close Relative’s) except when You make a  Cancellation, Curtailment or Trip Change due to the death of a  Travelling Companion or Close Relative and provided the death was not  as a result of a Terminal Illness; 3.  the death, Injury, unforeseen Illness of any Close Relative or Travelling  Companion who is 91 years of age or older when You made Your  Qualifying Travel Purchase;  4. costs where a refund, credit note or voucher has been received or  offered for those costs; 5.  additional costs incurred due to Your failure to notify the carrier or  travel agent as soon as reasonably possible that Your Trip is to be  Cancelled or Curtailed; 6. any government regulation, prohibition or restriction, including but not  limited to: a.  Your failure to hold or obtain a valid passport, visa, or other required  documentation prior to commencing Your Trip; b.  Travel advisories, border closures, mandatory quarantine, public  health directives to quarantine or lockdown orders which occurred  before You: i.  made Your Qualifying Travel Purchase in the case of a claim for a  Cancellation; or ii.  started Your Trip in the case of a claim for a Curtailment or   Trip Change; c.  border closures or government advice not to travel which relate to  an epidemic, pandemic or outbreak of an infectious disease or virus  or any derivative or mutation of such viruses for a Domestic Return  Trip; 7. where You do not meet the vaccination protocols required by a  transport provider or an Australian State, Territory or the Australian  Federal Government or the government of any destination You had  planned to travel to before they allow You to board the Public Transport; 8. a Special Event that is cancelled or postponed as a result of an  epidemic, pandemic or outbreak of an infectious disease or virus or any  derivative or mutation of such viruses; 9.  Your failure to check-in at the required time for any flight, sea crossing,  train or bus journey which is within Your control;10. Cancellation caused by Your work commitments, or amendment of  Your entitlement by Your employer, unless You are a member of the  Australian armed services (military, naval or air service) or emergency  services (police, fire, ambulance) and the expense or cost was incurred  as a result of Your leave being revoked; 11.  travel or accommodation costs for anyone that is not a Covered Person; 12.  costs incurred in respect of any medical condition where You are  unable to supply a medical certificate from Your treating Doctor  confirming Cancellation, Curtailment or Trip Change was necessary and  unavoidable. If a written confirmation is not provided, You must provide  evidence that You have taken reasonable steps to obtain the written  confirmation, such as emails, call logs or other reasonable evidence; 13.  Your financial circumstances or any contractual or business obligation; 14.  the failure of Your travel agent to pass on monies to operators or to  deliver promised services; 15.  the Insolvency of any person, company or organisation, including but  not limited to a travel agent, tour operator, accommodation provider,  airline or other carrier, vehicle rental agency or any other travel or  tourism services provider; 16. additional transportation or accommodation expenses which are  payable under another section or benefit of this Policy; 1 7.  any circumstances that were foreseeable, avoidable, unnecessary or  within Your control: a. at the time You made Your Qualifying Travel Purchase in the case of  Cancellation, or b. before You start Your Trip in the case of Curtailment or Trip Change. EXCESS – TRIP CANCELLATION AND AMENDMENT COVER As noted in the Schedule of Benefits. Section (B) Personal Accident Cover This benefit is only available when You meet the eligibility criteria set out in  the Eligibility Table. Please refer to the Schedule of Benefits within this Policy to confirm the  amount of cover available under this section. COVER – PERSONAL ACCIDENT COVER 1.    Accidental Death or Permanent Disablement arising during   Your Trip  If during Your Trip, You suffer an Injury that results in Your: i. Accidental Death, or ii. Permanent Disablement; within 12 months of the date of the Injury; We will pay You or Your estate the applicable benefit amount (up to the  maximum relevant cover section limit inclusive of sub-limits as shown in  the Schedule of Benefits). If You are eligible for the higher Accidental Death or Permanent  Disablement benefit under 2) Public Transport Accident Cover (below), the above benefit cannot also be claimed.', metadata={'page': 26, 'filename': 'insurance_tncs'})]
+
+
+
+
+This is the chatbot response:
+-----------------------------
+No, you are not eligible for travel insurance if you have only bought a one-way ticket. Travel insurance coverage is available for International Return Trips, meaning you need to have both outbound and return tickets. (insurance_tncs, page 9)  
+
+
+This is the chat history:
+-------------------------
+{
+    "role": "user",
+    "content": "Who is eligible for travel insurance?"
+}
+{
+    "role": "assistant",
+    "content": "To be eligible for travel insurance, you must meet the following criteria:\n- You must be 79 years of age or younger when you make your Qualifying Travel Purchase. (insurance_tncs, page 6)\n- You must be going on an International Return Trip and pay the full amount of your outbound ticket for a Scheduled Flight or Scheduled Cruise leaving Australia using your American Express Card Account, corresponding American Express Membership Rewards points, Qantas Points, Velocity Points, or Travel Benefit. (insurance_tncs, page 9)\n- You must hold an eligible American Express Card Account that is current (not cancelled or suspended). (insurance_tncs, page 9)"
+}
+{
+    "role": "user",
+    "content": "Am I eligible for travel insurance if I've only bought a 1 way ticket?"
+}
+{
+    "role": "assistant",
+    "content": "No, you are not eligible for travel insurance if you have only bought a one-way ticket. Travel insurance coverage is available for International Return Trips, meaning you need to have both outbound and return tickets. (insurance_tncs, page 9)"
+}
+
+
+This is the token count:
+-------------------------
+2622 prompt tokens counted by the OpenAI API.
+You have 1475 remaining tokens for the gpt-3.5-turbo model.
+
+
+Ask anything: Does it have to be return from Australia? What if I'm flying out of America and then back to America?
+
+
+This is the pdf extracts:
+-------------------------
+[Document(page_content='34 AMERICAN EXPRESS CREDIT CARD INSURANCEii. for a Domestic Return Trip: when an Australian State, Territory,  the Australian Federal Government or an Australian government  agency (such as DFAT) have issued an official written government  statement advising You not to travel to Your destination, or that  borders are closed for the destination You had planned to travel  to; or iii. when a Doctor has deemed You unfit to travel; 12. Trips that do not start and end in Australia; 13. any One-Way Trip where You are unable to provide reasonable  evidence of Your intention to return to Your Home or Your Work. Such  evidence may include providing copies of a return ticket, itinerary or  schedule, return transfer or accommodation bookings, confirmation  of return to Work dates; 14. Trips you take if You are 80 years of age or older when You made Your  Qualifying Travel Purchase; 15. a Domestic Return Trip that is less than 150 kilometre radius from   Your Home; Conduct Exclusions We will not pay for or reimburse any costs under any section of this Policy  arising from or relating to: 16. being under the influence of alcohol whilst operating a motor  vehicle, where You have a recorded blood alcohol concentration  (BAC) greater than the limit prescribed by the applicable governing  authority, or at all other times having a recorded blood alcohol  concentration (BAC) greater than 0.10%; 1 7. taking of any drug, medication, narcotic or hallucinogen, unless  as prescribed by a Doctor and taken in accordance with the  prescription and Doctors’ advice but is not for the treatment of  addiction to illegal drugs; 18. intentionally self-inflicted injury or suicide (or any attempt thereof); 19. commission of or attempt to commit an illegal act by or on behalf  of You or Your beneficiaries. This exclusion does not apply to any  Covered Person who is not the perpetrator of any such illegal act, or  who did not know of or condone any such act; Activity Exclusions We will not pay for or reimburse any costs under any section of this Policy  arising from or relating to: 20. Your participation, involvement or taking part in Excluded Sports  and Activities while on a Trip; 21. any costs where You are participating in a sporting event with  an appearance fee, wage, salary or prize money which in total is  an amount equal to 15% of Your annual income from all sources.  Participation includes training for, coaching or otherwise competing  in that sporting event; 22. travel into hazardous work sites (e.g. underwater, mines,  construction sites, oilrigs, etc.); 23. service in armed forces (military, naval or air service) of any country  except Australia where cover applies for Cancellation, Curtailment  or Trip Change under Section A – Trip Cancellation and Amendment  Cover (specified Event number 4);24. participation in any military or emergency services such as police or  fire-fighting;  25. activities undertaken as an operator or crew member of any form   of transport; 26. flying in military aircraft or any aircraft which requires special  permits or waivers; 2 7. You are riding a motorcycle: a. without wearing a helmet (either as a driver or passenger); b. as the driver without being licensed in both Australia and the  country of travel to drive such a motorcycle; or c. whilst racing or participating in a professional capacity or  motocross. World Event Exclusions We will not pay for or reimburse any costs under any section of this Policy  arising from or relating to: 28. declared or undeclared war or any act thereof; however, any act  committed by an agent of any government, party or faction engaged  in war, hostilities or other warlike operations provided such agent is  acting secretly and not in connection with any operation of armed  forces (whether military, naval or air forces) in the country where the  injury occurs will not be deemed an act of war; 29. an act of Terrorism except when such Event occurs under the cover  in Section B – Personal Accident Cover or Section D – Medical  Emergency Expenses Cover of this Policy; Pregnancy and Childbirth Exclusions We will not pay for or reimburse any costs under any section of this Policy  arising from or relating to: 30. childbirth or any newborn child, meaning a newborn (whether  premature or otherwise) is not considered a Covered Person under  this Policy if the child was born on the Trip; 31. pregnancy in the following circumstances: a. any past medical condition(s) relating to a previous pregnancy  or if You have experienced pregnancy complications prior to You  making Your Qualifying Travel Purchase; b. for any costs under Section D – Medical Emergency Expenses  Cover or Section A – Trip Cancellation and Amendment Cover  within 8 weeks of Your estimated date of delivery; c. for any costs under Section D – Medical Emergency Expenses  Cover arising from or relating to an abortion, unless an abortion  is medically necessary to protect the health and safety of the  mother following an Injury or Illness, as determined by a   treating Doctor; d. for any costs under Section D – Medical Emergency Expenses  Cover arising from fertility treatment or treatment associated  with an assisted reproduction program including but not limited  to, in vitro fertilisation (IVF).', metadata={'page': 36, 'filename': 'insurance_tncs'}), Document(page_content='28 AMERICAN EXPRESS CREDIT CARD INSURANCE13. You engaging in Manual Work; 14.  any costs incurred in a destination where an Australian State, Territory  or the Australian Federal Government or an Australian government  agency (such as DFAT) have issued or upgraded a travel advisory  warning, advising You to ‘Do Not Travel’ or that borders are closed,  for the destination You planned to travel to and this occurred prior  to You starting Your International Return Trip. This exclusion applies  even if You have been granted a travel exemption by an Australian  State or Territory, the Australian Federal Government or an Australian  government agency (such as DFAT) to travel. EXCESS – MEDICAL EMERGENCY EXPENSES COVER As noted in the Schedule of Benefits. Section (E) Resumption Of Long International Trip Cover  This benefit is only available when You meet the eligibility criteria set out in  the Eligibility Table. Please refer to the Schedule of Benefits within this Policy to confirm the  amount of cover available under this section. COVER – RESUMPTION OF LONG INTERNATIONAL TRIP COVER 1. Resumption Of Long International Trip Cover In the event that You have to interrupt a Long International Trip and return  to Australia immediately following the:  1. death;  2. imminent death; 3. Injury; 4. unforeseen Illness; of a Close Relative where the Close Relative is 90 years of age or younger  before You make Your Qualifying Travel Purchase; We will pay for reasonable extra expenses actually and necessarily incurred  (less any refund received for the unused prepaid travel accommodation  arrangements) to resume Your Long International Trip if:  i. You resume Your Long International Trip within 30 days of returning  to Australia;  ii.  You have more than 14 days remaining on Your Long International  Trip; and iii.  the remaining period constitutes at least 25% of the total duration  of Your Long International Trip. TERMS AND CONDITIONS – RESUMPTION OF LONG INTERNATIONAL  TRIP COVER (Please also refer to the General Conditions Applicable to all Sections  within this Policy).  1. We will deduct any airline refunds or travel credits You receive from the  amount We pay or reimburse. 2.  We will deduct any airfares reimbursed under Section A – Trip  Cancellation and Amendment Cover. 3.  We will only pay if the death, imminent death, Injury or unforeseen  Illness of a Close Relative occurred after You make Your Qualifying  Travel Purchase.EXCLUSIONS – RESUMPTION OF LONG INTERNATIONAL TRIP COVER (Please also refer to the General Exclusions applicable to All Sections  within this Policy).  We will not pay for or reimburse any costs arising from or relating to:  1. the death, Injury or unforeseen Illness of any Close Relative: a. who is 91 years of age or older when You make Your Qualifying Travel  Purchase; or b. that occurred before You made Your Qualifying Travel Purchase; 2. any Terminal Illness of a Close Relative which was diagnosed before You  made Your Qualifying Travel Purchase; 3.  circumstances where there was a reasonable likelihood that a return  Home would be necessary before You made Your Qualifying Travel  Purchase or where a reasonable person should have foreseen such   a likelihood; 4.  any airfares booked or paid for after the Event that caused the  interruption to Your Long International Trip; 5.  an epidemic, pandemic or outbreak of an infectious disease or virus or  any derivative or mutation of such viruses. EXCESS – RESUMPTION OF LONG INTERNATIONAL TRIP COVER As noted in the Schedule of Benefits.  Section (F) Personal Baggage, Valuables, Money And Travel   Documents Cover This benefit is only available when You meet the eligibility criteria set out in  the Eligibility Table. Please refer to the Schedule of Benefits within this Policy to confirm the  amount of cover available under this section.   COVER – PERSONAL BAGGAGE, VALUABLES, MONEY AND TRAVEL  DOCUMENTS COVER If during Your Trip, Your: Accidental Damage 1.  Personal Baggage, Valuables or Travel Documents are accidentally  damaged or destroyed; or Accidentally Lost 2. Personal Baggage, Valuables, Money or Travel Documents are  accidentally lost; or Stolen from Hold 3. Personal Baggage or Travel Documents are stolen when they have been  checked in or stowed in the luggage hold of an airplane, ship, bus or  train, where You had no access to that Personal Baggage until the end  of the transport; or  Stolen from Designated Storage Area 4.  Personal Baggage, Valuables, Money or Travel Documents are stolen  when they have been stowed in a specially designated area (such  as overhead compartment, luggage rack or hotel storage room) on  an airplane, ship, bus or train transport or with an accommodation  provider; or', metadata={'page': 30, 'filename': 'insurance_tncs'}), Document(page_content='6 AMERICAN EXPRESS CREDIT CARD INSURANCEAustralian Law Your Policy is governed by the laws of the State or Territory of Australia where Your Home is. Any dispute or action in connection with Your Policy will be conducted  and determined in the courts of the State or Territory of Australia in which Your Home is. Australian Currency All payments made under this Policy must be in Australian currency. Chubb Assistance (In The Event Of An Emergency) Emergency assistance around the world In the event of a medical emergency whilst overseas simply phone +61 2 8907 5666 to get immediate help in locating medical assistance in Your local area. For all non-emergency matters, contact Chubb Customer Service on 1800 236 023, or You can submit Your claim online by visiting the Chubb Claims Centre for  American Express: www.americanexpress.com/australia/claims Where Your claim is excluded or falls outside this Policy coverage, We may still provide You with some emergency assistance. If We do this, the provision of  emergency assistance by Chubb Assistance will not in itself be an admission of liability. Considerable effort is made to locate, assess and reassess medical facilities and other services worldwide. However, the medical standards, sanitary conditions,  reliability of telephone systems and facilities for medical services differ from country to country and accordingly, it is not always possible to have control over  these factors. In the circumstances, responsibility for any loss, medical complication or death resulting from any factor beyond Our control, cannot be accepted by  Chubb Assistance or Us. Eligibility For Cover Under This Policy Cover under this Policy is only available to Card Members who meet the eligibility criteria. You need to use Your American Express Card Account in accordance with  the Eligibility Table below. Not all cover sections have the same eligibility criteria, so it is important You understand when the benefits under this Policy become  available to You. Eligibility Table Cover SectionEligibility Criteria To be eligible for the benefits under the cover section(s) of the Policy, the following eligibility criteria needs to be met:When are benefits available under the Policy?When are no benefits  available under this Policy? Travel Insurance  Cover (Sections A – G) (continued below)1.   You are a Card Member or an Additional Card Member or their: a) Spouse; or b) Dependent Child. 2. You are a Resident of Australia. Domestic Return Trips 3.  You are going on a Domestic Return Trip and You either: a. spend $500 or more on accommodation; or b.    Pay the full amount of Your outbound ticket for a Scheduled Flight, Scheduled Cruise, bus or train to Your scheduled outbound  destination  on Your: i. American Express Card Account; ii.   corresponding American Express Membership Rewards points /  Qantas Points / Velocity Points (where applicable); and/or iii. Travel Benefit.If You have satisfied  the eligibility criteria,  You will be eligible  to make a claim for  the Domestic Return  Trip or International  Return Trip that  eligibility condition 3  or 4 applies to.There is no cover under this  Policy if: 1.  You do not meet the  eligibility criteria; 2.  Your American Express  Card Account has been  cancelled or suspended; 3.  You are going on a One  WayT rip. Please also refer to the Terms, Conditions and Exclusions within  each cover section (A – G below)  and the General Exclusions and  General Conditions within this  Policy.', metadata={'page': 8, 'filename': 'insurance_tncs'})]
+
+
+
+
+This is the chatbot response:
+-----------------------------
+Yes, the travel insurance coverage is specifically for International Return Trips that start and end in Australia. If you are flying out of America and returning to America, this policy would not provide coverage for your trip. (insurance_tncs, page 9)
+
+
+This is the chat history:
+-------------------------
+{
+    "role": "user",
+    "content": "Who is eligible for travel insurance?"
+}
+{
+    "role": "assistant",
+    "content": "To be eligible for travel insurance, you must meet the following criteria:\n- You must be 79 years of age or younger when you make your Qualifying Travel Purchase. (insurance_tncs, page 6)\n- You must be going on an International Return Trip and pay the full amount of your outbound ticket for a Scheduled Flight or Scheduled Cruise leaving Australia using your American Express Card Account, corresponding American Express Membership Rewards points, Qantas Points, Velocity Points, or Travel Benefit. (insurance_tncs, page 9)\n- You must hold an eligible American Express Card Account that is current (not cancelled or suspended). (insurance_tncs, page 9)"
+}
+{
+    "role": "user",
+    "content": "Am I eligible for travel insurance if I've only bought a 1 way ticket?"
+}
+{
+    "role": "assistant",
+    "content": "No, you are not eligible for travel insurance if you have only bought a one-way ticket. Travel insurance coverage is available for International Return Trips, meaning you need to have both outbound and return tickets. (insurance_tncs, page 9)"
+}
+{
+    "role": "user",
+    "content": "Does it have to be return from Australia? What if I'm flying out of America and then back to America?"    
+}
+{
+    "role": "assistant",
+    "content": "Yes, the travel insurance coverage is specifically for International Return Trips that start and end in Australia. If you are flying out of America and returning to America, this policy would not provide coverage for your trip. (insurance_tncs, page 9)"
+}
+
+
+This is the token count:
+-------------------------
+3296 prompt tokens counted by the OpenAI API.
+You have 801 remaining tokens for the gpt-3.5-turbo model.
+
+
+Ask anything: end
+```
