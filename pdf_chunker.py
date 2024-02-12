@@ -4,6 +4,7 @@ from io import BytesIO
 from typing import List # use List as then we can be specific on which elements the list can contain, e.g. List(str)
 from langchain.docstore.document import Document
 from pypdf import PdfReader
+from langchain.text_splitter import RecursiveCharacterTextSplitter
 
 def parse_pdf(file: BytesIO, filename: str) -> tuple[List[str], str]:
     """
@@ -53,8 +54,9 @@ def text_to_docs(text: List[str], filename: str) -> List[Document]:
 
     This function is used to:
         - Take a list of text strings & file name
-        - Processes the pages to create a list of "Document" objects that contain metadata of page and file name
-        
+        - Processes the text to create a list of chunked "Document" objects
+        - These objects each represent a smaller portion of the original text with associated metadata
+    
     """
     # Ensure the input text is a list. If it's a string, convert it to a list.
     if isinstance(text, str):
@@ -66,12 +68,39 @@ def text_to_docs(text: List[str], filename: str) -> List[Document]:
     # Assign a page number to the metadata of each document.
     for i, doc in enumerate(page_docs):
         doc.metadata["page"] = 1+i #as enumerate starts at 0
-        doc.metadata["filename"] = filename
 
-    return page_docs
+    doc_chunks = []
+    
+    # Split each page's text into smaller chunks and store them as separate documents.
+    for doc in page_docs:
+        # Initialize the text splitter with specific chunk sizes and delimiters.
+        text_splitter = RecursiveCharacterTextSplitter(
+            chunk_size=2000, 
+            separators=["\n\n", "\n", ".", "!", "?", ",", " ", ""],
+            chunk_overlap=0,
+        )
+        
+        # Split the dcument pages into chunks
+        chunks = text_splitter.split_text(doc.page_content)
+        # print(chunks)
 
-# trying the functions
+        # Convert each chunk into a new document, storing its chunk number, page number, and source file name in its metadata.
+        for i, chunk in enumerate(chunks):
+            doc = Document(
+                page_content=chunk, 
+                metadata={"page": doc.metadata["page"], #this is the page metadata from previous doc object before it was chunked
+                          "chunk": i+1}
+                          )
+            # doc.metadata["source"] = f"page {doc.metadata['page']} - section {doc.metadata['chunk']}"
+            doc.metadata["filename"] = filename
+            doc_chunks.append(doc)
+    
+    # Return the list of chunked documents.
+    return doc_chunks
+
 """
+# trying the functions
+
 cleaned_text, filename = parse_pdf("data\\qantas_points_tncs.pdf", "qantas_points_tncs")
 include_metadata = text_to_docs(cleaned_text,filename)
 
