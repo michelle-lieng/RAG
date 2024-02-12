@@ -1,5 +1,4 @@
 # Import libaries
-from io import BytesIO
 from typing import List
 from langchain_openai import OpenAIEmbeddings
 from pdf_chunker import parse_pdf, text_to_docs
@@ -38,8 +37,8 @@ def create_vectordb(pdf_files: List[str], pdf_names: List[str], openai_api_key: 
     return db
 
 """
-try function
-
+#try function
+import os
 def read_pdf_files_from_folder(folder_path: str):
     pdf_files = []
     pdf_names = []

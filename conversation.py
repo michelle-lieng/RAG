@@ -54,8 +54,9 @@ def conversation():
             print("\n")
             print("This is the pdf extracts: ")
             print("-------------------------")
-            print(docs)
-            print("\n")
+            for line in docs:
+                print(line)
+                print("\n")
 
             # add these document chunks to the system prompt
             #pdf_extract = "/n ".join([result.page_content for result in docs])
@@ -74,7 +75,7 @@ def conversation():
                 model="gpt-3.5-turbo",
                 messages=[system] + chat_history,
                 temperature=0,
-                max_tokens=150,
+                max_tokens=200,
                 frequency_penalty=0
             )
 
