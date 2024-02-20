@@ -50,13 +50,6 @@ def conversation():
         else:
             # retrieve 3 similar document chunks to the user query
             docs = db.similarity_search(user_query, k=3) 
-            
-            print("\n")
-            print("This is the pdf extracts: ")
-            print("-------------------------")
-            for line in docs:
-                print(line)
-                print("\n")
 
             # add these document chunks to the system prompt
             #pdf_extract = "/n ".join([result.page_content for result in docs])
@@ -83,6 +76,11 @@ def conversation():
             chat_history.append({"role": "assistant", "content": chatbot_response})
             
             print("\n")
+            print("This is the pdf extracts: ")
+            print("-------------------------")
+            for line in docs:
+                print(line)
+                print("\n")
             print("This is the chatbot response: ")
             print("-----------------------------")
             print(chatbot_response)
