@@ -18,12 +18,15 @@ Next Steps (Debugging & Experimental)
 * Figure out how to set api to environment variable
 * Understand BytesIO
 * Add more AMEX cards to compare them - ultimate goal the chatbot can compare which credit card is best in australia
+* Explore langchains chat history module
 
 Completed Changes
 =================
 * Added chat history 7/2/24
 * Added more pdf files into data folder and fixed code 8/2/24
 * Add a token counter 12/2/24
+* Implemented streaming 21/2/24
+* Implemented gradio interface 21/2/24
 
 Notes 
 =====
