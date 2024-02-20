@@ -16,7 +16,7 @@ def parse_pdf(file: BytesIO, filename: str) -> tuple[List[str], str]:
     
     """
     # Initialize the PDF reader for the provided file
-    pdf = PdfReader(file)
+    pdf = PdfReader(file) # enables to use method pages
     cleaned_text = []
     
     # Loop through all the pages in the PDF
