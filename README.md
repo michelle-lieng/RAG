@@ -1,6 +1,10 @@
 # RAG
 Implementing RAG with Langchain and OpenAI API. PDFs in data file are downloaded from the AMEX Ultimate Card policies listed under "Important Information" on [this page here.](https://www.americanexpress.com/au/credit-cards/qantas-ultimate-card/).
 
+Note 2 main files:
+- gradio_chatbot.py you interact with chatbot via gradio web interface
+- conversation.py you interact with chatbot directly in the python console 
+
 Example questions to ask for AMEX document:
 - How long can I be covered for while travelling?
 - Are there any countries that I will not be covered for if I travel to?
