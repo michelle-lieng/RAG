@@ -1,24 +1,14 @@
 # Import libraries
-from vectordb import create_vectordb 
+from src.vectordb import create_vectordb 
+from src.chatbot_setup import system_prompt, read_pdf_files_from_folder
 from openai import OpenAI
 import gradio as gr
-from conversation import read_pdf_files_from_folder
 
 # Read openai key
 with open('GPT_api_key.txt') as f:
     openai_api_key = f.read()
 
-# Define the template for the chatbot system prompt
-system_prompt = """
-    You are a helpful assistant who answers to users questions based on multiple contexts given to you.
-    Keep your answer short and to the point.
-    The evidence are the context of the pdf extract with metadata. 
-    Carefully focus on the metadata specially 'filename' and 'page' whenever answering.
-    Make sure to add filename and page number at the end of sentence you are citing to.
-    Reply "Not applicable" if text is irrelevant.
-    The PDF content is:
-    {pdf_extract}
-"""
+# Create function for gradio chatbot
 def gradio_chatbot(message: str, history: list) -> str:
     data_folder = "data"  # Path to the folder where PDFs are stored.
     pdf_files, pdf_names = read_pdf_files_from_folder(data_folder)
@@ -73,4 +63,4 @@ gr.ChatInterface(
 ).launch()
 
 #ISSUES:
-# tell me more -> not applicable 
+# queries like tell me more or i don't understand is not applicable

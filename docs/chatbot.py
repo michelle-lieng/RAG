@@ -7,7 +7,7 @@ This is an old file. Was the original function for querying the chatbot - now ha
 
 # Import libraries
 import os
-from vectordb import create_vectordb 
+from src.vectordb import create_vectordb 
 from openai import OpenAI
 
 # Read openai key
