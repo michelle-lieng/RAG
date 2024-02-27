@@ -21,7 +21,7 @@ Note that there are two main chatbot files:
 My biggest challenged faced was understanding how to implement a RAG pipeline and creating a Makefile for the first time. The docs file shows me experimenting with alot of new concepts learnt in this project. 
 
 A good workflow that helped me understand visually was:
-![RAG](assets\rag.jpeg)
+![RAG](./assets/rag.jpeg)
 
 ## Installation
 
@@ -46,7 +46,7 @@ Example questions to ask chatbot:
 - Who can I call if my card gets lost?
 
 Once run output will show similar to below. View example of chatbot in gradio web interface below:
-![Webpage](assets\gradio_chatbot.png)
+![Webpage](./assets/gradio_chatbot.png)
 
 View example of chatbot output in python console below:
 
