@@ -1,11 +1,42 @@
-# RAG
-Implementing RAG with Langchain and OpenAI API. PDFs in data file are downloaded from the AMEX Ultimate Card policies listed under "Important Information" on [this page here.](https://www.americanexpress.com/au/credit-cards/qantas-ultimate-card/).
+# RAG Chatbot w/ ChatGPT API & Langchain
 
-Note 2 main files:
+## Description
+
+In this project I created an AI chatbot with retrieval augmented generation workflow that is able to answer questions about AMEX terms and conditions on their ultimate card. The PDFs in data file are downloaded from the AMEX Ultimate Card policies listed under "Important Information" on [this page here.](https://www.americanexpress.com/au/credit-cards/qantas-ultimate-card/). 
+
+For this project, some of the technologies used were:
+
+- openai
+- gradio
+- langchain
+- pypdf
+- re
+- os
+- sys
+
+Note that there are two main chatbot files:
 - gradio_chatbot.py you interact with chatbot via gradio web interface
 - conversation.py you interact with chatbot directly in the python console 
 
-Example questions to ask for AMEX document:
+My biggest challenged faced was understanding how to implement a RAG pipeline and creating a Makefile for the first time. The docs file shows me experimenting with alot of new concepts learnt in this project. 
+
+A good workflow that helped me understand visually was:
+![RAG](assets\rag.jpeg)
+
+## Installation
+
+To install this project you will have to download the repository from github and runit locally from your CLI. To be able to use this project python 3.11.0 (or lower version) will have to be installed, which can be found [here](https://www.python.org/downloads/release/python-3110/).
+
+## Usage
+
+Once installed you can use this project by entering the repository location using your CLI. Once entered into the repository you can run the project by entering the following makefile commands in the CLI:
+
+1. Creating a virtual environment & installing dependencies: ```make install```
+2. Running chatbot in gradio web interface: ```make run``` (note: already has 3 examples loaded up)
+3. Running chatbot in python console: ```make run-other```
+4. Cleaning directory: ```make clean```
+
+Example questions to ask chatbot:
 - How long can I be covered for while travelling?
 - Are there any countries that I will not be covered for if I travel to?
 - Who is eligible for travel insurance?
@@ -14,13 +45,10 @@ Example questions to ask for AMEX document:
 - How much is the annual fee for the American Express Ultimate Card?
 - Who can I call if my card gets lost?
 
-Note:
+Once run output will show similar to below. View example of chatbot in gradio web interface below:
+![Webpage](assets\gradio_chatbot.png)
 
-$ python --version
-
-Python 3.11.0
-
-View example below:
+View example of chatbot output in python console below:
 
 ```
 >>> conversation()
@@ -153,3 +181,13 @@ You have 801 remaining tokens for the gpt-3.5-turbo model.
 
 Ask anything: end
 ```
+
+## Limitations
+
+Current limitations being looked into include:
+- The chatbot not being able to respond to statements like "tell me more" because it searches for the most
+cosine similar chunks to the query in the vector db without taking in the chat history ->
+looking into a fix with a NLP pipeline beforehand
+- The chatbot not being able to response to simple greeting statements like "hi" -> looking into a fix
+by changing up system prompt
+- File metadata: the page number is a count from beginning so doesn't always match pdf 
