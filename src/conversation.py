@@ -1,3 +1,7 @@
+# Setup module paths
+from chatbot_setup import setup_module_path
+setup_module_path()
+
 # Import libraries
 from src.vectordb import create_vectordb 
 from src.chatbot_setup import system_prompt, read_pdf_files_from_folder
@@ -5,7 +9,7 @@ from openai import OpenAI
 import json # for readability of the chat history
 
 # Read openai key
-with open('GPT_api_key.txt') as f:
+with open(r'src\GPT_api_key.txt') as f:
     openai_api_key = f.read()
 
 # Function for chatbot
@@ -74,4 +78,5 @@ def conversation():
             print("\n")
             continue
 
-# conversation()
+# run function
+conversation()
