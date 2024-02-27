@@ -15,8 +15,10 @@ For this project, some of the technologies used were:
 - sys
 
 Note that there are two main chatbot files:
-- gradio_chatbot.py you interact with chatbot via gradio web interface
-- conversation.py you interact with chatbot directly in the python console 
+- gradio_chatbot.py - interact with chatbot via gradio web interface.
+- conversation.py - interact with chatbot directly in the python console. The output of this file is 
+alot more detailed because I wanted to view the pdf extracts, chat history and token count to develop
+my understanding.
 
 My biggest challenged faced was understanding how to implement a RAG pipeline and creating a Makefile for the first time. The docs file shows me experimenting with alot of new concepts learnt in this project. 
 
